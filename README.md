@@ -1,57 +1,152 @@
-# Melanoma Skin Cancer Detection
+# Melanoma Detection via Convolutional Neural Network (CNN)
 
-## Abstract
-In cancer, there are over 200 different forms. Out of 200, melanoma is the deadliest form of skin cancer. The diagnostic procedure for melanoma starts with clinical screening, followed by dermoscopic analysis and histopathological examination. Melanoma skin cancer is highly curable if it gets identified at the early stages. The first step of Melanoma skin cancer diagnosis is to conduct a visual examination of the skin's affected area. Dermatologists take the dermatoscopic images of the skin lesions by the high-speed camera, which have an accuracy of 65-80% in the melanoma diagnosis without any additional technical support. With further visual examination by cancer treatment specialists and dermatoscopic images, the overall prediction rate of melanoma diagnosis raised to 75-84% accuracy. The project aims to build an automated classification system based on image processing techniques to classify skin cancer using skin lesions images.
-
-## Problem Statement
- In the skin biopsy, the dermatologist takes some part of the skin lesion and examines it under the microscope. The current process takes almost a week or more, starting from getting a dermatologist appointment to getting a biopsy report.
- The aims to shorten the current gap to just a couple of days by providing the predictive model.
- The approach uses Convolutional Neural Network (CNN) to classify nine types of skin cancer from outlier lesions images. This reduction of a gap has the opportunity to impact millions of people positively.
+The objective of this project is to create a Convolutional Neural Network (CNN) to classify a dermoscopic image of a skin lesion as Melanoma or Non-Melanoma. A dermoscopic image is a picture of the skin using a microscope and illumination.
 
 ## Motivation
-The overarching goal is to support the efforts to reduce the death caused by skin cancer. The primary motivation that drives the project is to use the advanced image classification technology for the well-being of the people. Computer vision has made good progress in machine learning and deep learning that are scalable across domains.
 
-## Dataset
-The dataset consists of 2357 images of malignant and benign oncological diseases, which were formed from the International Skin Imaging Collaboration (ISIC). All images were sorted according to the classification taken with ISIC, and all subsets were divided into the same number of images.
+Melanoma is the deadliest and most aggressive form of skin cancer; it is projected that in 2018, Melanoma of the skin will cause 9,320 deaths in the United States. However, if Melanoma is caught in an early stage, the 5-year survival rate is about 99%. Therefore, the early detection of Melanoma, before metastasis, is critical for patient survival.
 
-The data set contains the following diseases:
+Melanoma evolves from the rapid growth of melanin-producing cells, Melanocytes, which are located in the skin’s epidermis. Although Melanoma can only be confirmed with a biopsy, it is often identified visually in an existing or new nevus (commonly known as "mole") using the mnemonic “ABCDEs”:
 
-![datasetdf](https://github.com/kshitij-raj/Melanoma-Skin-Cancer-Detection/blob/f143d178495ec6490ce2ee18c4cbbfb2e1388cea/Readme_images/Datasetdf.png)
+1.    _Asymmetry_ – The lesion is irregular, or not symmetrical, in shape.
+2.    _Border_ – The edges are irregular and difficult to define.
+3.    _Color_ – More than one color, or uneven distribution of color, exists.
+4.    _Diameter_ – Diameter is greater than 6 mm.
+5.    _Evolving_ – The lesion has changed in color and size over time.
 
-![datasetplot](https://github.com/kshitij-raj/Melanoma-Skin-Cancer-Detection/blob/f143d178495ec6490ce2ee18c4cbbfb2e1388cea/Readme_images/DatasetPlot.png)
+## Built With
 
-To overcome the issue of class imbalance, used a python package  Augmentor (https://augmentor.readthedocs.io/en/master/) to add more samples across all classes so that none of the classes have very few samples.
+* TensorFlow
+* Keras
+* Python
+* MATLAB's Deep Learning Toolbox
 
-### Sample image from Dataset
+## Models
 
-![sample image](https://github.com/kshitij-raj/Melanoma-Skin-Cancer-Detection/blob/b43daf05e84626d3796321e79caeb2f6f8179346/Readme_images/Samleimagefromdataset.png)
+Two CNN architectures were explored for this project:
 
-## CNN Architecture Design
-To classify skin cancer using skin lesions images. To achieve higher accuracy and results on the classification task, I have built custom CNN model.
+1) Simple CNN built from scratch with Keras, TensorFlow, and Python.
+2) Deep (AlexNet-based) CNN built with MATLAB's Deep Learning Toolbox. Final 3 layers (Fully Connected, Softmax, and Classification Output) are adapted to my dataset.
 
-- Rescalling Layer - To rescale an input in the [0, 255] range to be in the [0, 1] range.
-- Convolutional Layer - Convolutional layers apply a convolution operation to the input, passing the result to the next layer. A convolution converts all the pixels in its receptive field into a single value. For example, if you would apply a convolution to an image, you will be decreasing the image size as well as bringing all the information in the field together into a single pixel. 
-- Pooling Layer - Pooling layers are used to reduce the dimensions of the feature maps. Thus, it reduces the number of parameters to learn and the amount of computation performed in the network. The pooling layer summarises the features present in a region of the feature map generated by a convolution layer.
-- Dropout Layer - The Dropout layer randomly sets input units to 0 with a frequency of rate at each step during training time, which helps prevent overfitting.
-- Flatten Layer - Flattening is converting the data into a 1-dimensional array for inputting it to the next layer. We flatten the output of the convolutional layers to create a single long feature vector. And it is connected to the final classification model, which is called a fully-connected layer.
-- Dense Layer - The dense layer is a neural network layer that is connected deeply, which means each neuron in the dense layer receives input from all neurons of its previous layer.
-- Activation Function(ReLU) - The rectified linear activation function or ReLU for short is a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero.The rectified linear activation function overcomes the vanishing gradient problem, allowing models to learn faster and perform better.
-- Activation Function(Softmax) - The softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability distribution. The main advantage of using Softmax is the output probabilities range. The range will 0 to 1, and the sum of all the probabilities will be equal to one.
+The source code for both models may be found in /src.
 
-### Model Architecture
-![Model Arch](https://github.com/kshitij-raj/Melanoma-Skin-Cancer-Detection/blob/d8b2ca8cc296af14ab9aa7a6def31a7efc86271b/Readme_images/ModelLayer.png)
+The block diagram of the Keras model may be seen below.
 
-### Model Evaluation
-![ModelEvaluation](https://github.com/kshitij-raj/Melanoma-Skin-Cancer-Detection/blob/7e7a17d3c891bf12be42385979168135775654c4/Readme_images/ModelEvaluation.png)
+<img src="images/Keras_Block.png" width="600">
 
-## References
-Melanoma Skin Cancer from https://www.cancer.org/cancer/melanoma-skin-cancer/about/what-is-melanoma.html
+The AlexNet CNN architecture may be seen below. AlexNet is a popular CNN that was trained on subsets of ImageNet database used in the ILSVRC-2010 and ILSVRC-2012 competitions. The ImageNet database has over 15 million labeled, high-resolution images belonging to 22,000 categories. AlexNet is 8 layers deep and can classify images into 1000 categories, such as keyboard, mouse, pencil, etc.
 
-Introduction to CNN from https://www.analyticsvidhya.com/blog/2021/05/convolutional-neural-networks-cnn/
+<img src="images/AlexNet.png" width="600">
 
-Image classification using CNN from https://www.analyticsvidhya.com/blog/2020/02/learn-image-classification-cnn-convolutional-neural-networks-3-datasets/
+AlexNet was trained on millions of images. As such, its lower layers have learned rich feature detection (such as edges, blobs, etc.) while its higher layers are more task specific (such as recognizing a keyboard). For this project, I replaced the last 3 layers of AlexNet to allow the network to learn features that are specific to my objective. This is known as Transfer Learning. The modified architecture may be seen below via MATLAB's Deep Network Designer.
 
-Efficient way to build CNN architecture from https://towardsdatascience.com/a-guide-to-an-efficient-way-to-build-neural-network-architectures-part-ii-hyper-parameter-42efca01e5d7
+<img src="images/AlexNet_MATLAB.png" width="600">
+
+More information on implementing AlexNet in MATLAB may be found [here](https://www.mathworks.com/help/deeplearning/ref/alexnet.html).
+
+## Data
+
+Neural Networks are a form of supervised learning, so training, testing, and validation data is required. This dataset has been acquired from multiple public sources (PH2, ISIC, and HAM10000) and combined, yielding a multi-source dataset:
+
+* [ISIC](https://isic-archive.com)
+* [PH2](http://www.fc.up.pt/addi/ph2%20database.html)
+* [HAM10000](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T)
+
+I visually inspected the images from these sources and selected only the high-quality and representative images to add to my dataset. In addition, I manually cropped the selected images.
+
+Altogether, my combined dataset contains 2,148 images. This dataset is randomly split into 70% for training, 20% for testing, and 10% for validation.
+
+My multi-scource dataset can be downloaded [here](https://drive.google.com/open?id=1VFO37HNONIY_8qWC_wmhXgjvOKcg3zJU).
+
+The details of this dataset may be seen below.
+
+|            | **Melanoma** | **Non-Melanoma** |
+|:----------:|:--------:|:--------------:|
+|    Train   |    751   |      754     |
+|    Test    |    214   |      215     |
+| Validation |    106   |      108     |
+|    **Total**   |   1,071  |     1,077    |
+
+- Sample images of Melanoma from the dataset:
+
+<img src="images/Melanoma.jpg" height="200"> <img src="images/Melanoma_2.jpg" height="200">
+
+- Sample images of Non-Melanoma from the dataset:
+
+<img src="images/Non-Melanoma.jpg" height="200"> <img src="images/Non-Melanoma_2.jpg" height="200">
+
+### Directory Structure
+
+This directory structure for the Keras model must be as follows. This is the structure of data_keras.zip.
+
+data /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;non-melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;train /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;non-melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validation /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;non-melanoma /
+
+The directory structure for the MATLAB AlexNet model must be as follows:
+
+data /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Melanoma /
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Non-Melanoma /
+
+## Results
+
+### Keras CNN
+
+The CNN built in Keras is able to achieve an overall accuracy of 78.8% on testing data not exposed to the CNN during training. This is actually good for such a simple CNN. This model takes about 10 minutes (12 epochs) to train on my MacBook Pro. While this CNN is simple and straightforward to understand, it does not yield the same level of accuracy as a deeper CNN. Below shows the accuracy, sensitivity, and specificty on the testing data. This model has the following parameters:
+
+- Adam optizmier (default parameters) [1]
+- Fully-connected neurons = 512
+- 3 Conv2D layers
+- Epochs = 12
+
+|   Accuracy  | 78.8 |
+|:-----------:|:-:|
+| Sensitivity | 69.2 |
+| Specificity | 88.3 |
+
+### Deep AlexNet-Based CNN
+
+The deep, AlexNet-based CNN is able to achieve an overall accuracy of 90.2% on testing data not exposed to the CNN during training. This takes quite a long time to run (20 epochs = 450 minutes). Below shows the accuracy, sensitivity, and specificty on the testing data. This model has the following parameters:
+
+- Stochastic Gradient Descent with Momentum (SGDM) optimizer; momentum = 0.9
+- Learning rate = 1e-5
+- Epochs = 20
+
+|   Accuracy  | 90.2 |
+|:-----------:|:-:|
+| Sensitivity | 89.2 |
+| Specificity | 91.2 |
+
+Below is the training data for this model.
+
+<img src="images/AlexNet_Training.png" width="1000" align="left">
+
+&nbsp;
+
+Below are AlexNet-based model predictions (and associated probability) on images on Melanoma and Non-Melanoma not exposed to the CNN during training. As you can see, this model classifies images very well with accuracy > 90%.
+
+<img src="images/AlexNet_Classification.jpg" width="1000" align="left">
+
+<img src="images/AlexNet_Classification_2.jpg" width="1000" align="left">
 
 ## Contact
 Created by [@ssprocks1] - feel free to contact me! 
